@@ -1,0 +1,15 @@
+{
+    // Tự động lưu sau 1 giây không gõ
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+
+    // Khi save thì gọi make
+    "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "match": ".*",
+                "cmd": "make"
+            }
+        ]
+    }
+}

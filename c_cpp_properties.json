@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "RaspberryPi",
+            "includePath": [
+                "${workspaceFolder}/**",          // Toàn bộ workspace
+                "${workspaceFolder}/My_lib"       // Thư viện riêng
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",      // Đường dẫn gcc trên Pi
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-arm",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/**",
+                    "${workspaceFolder}/My_lib"
+                ],
+                "limitSymbolsToIncludedHeaders": false,
+                "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
+            }
+        }
+    ],
+    "version": 4
+}

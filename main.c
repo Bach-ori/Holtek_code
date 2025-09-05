@@ -86,16 +86,16 @@ int log_queue_pop(log_entry_t *entry)
 // Thread ghi file log
 void* file_writer_thread(void* arg)
 {
-    FILE *f = fopen("received_log.txt", "a");
-    if (!f) return NULL;
-
     log_entry_t entry;
-    int flush_count = 0;
 
     while (running || log_queue.head != log_queue.tail) 
     {
-        if (log_queue_pop(&entry) == 0) 
+        if (log_queue_pop(&entry) == 0)   // chỉ chạy khi có dữ liệu
         {
+            FILE *f = fopen("received_log.txt", "a");  // mở file khi cần
+            if (!f) continue;
+
+            // ghi log
             fprintf(f, "[%s] ", entry.timestr);
             for (size_t i = 0; i < entry.len; i++) 
             {
@@ -103,17 +103,11 @@ void* file_writer_thread(void* arg)
                 fputc((c >= 32 && c <= 126) ? c : '.', f);
             }
             fputc('\n', f);
-            flush_count++;
-            if (flush_count >= LOG_BATCH_FLUSH) 
-            {
-                fflush(f);
-                flush_count = 0;
-            }
+
+            fclose(f);   // đóng ngay sau khi ghi
         }
     }
 
-    fflush(f);
-    fclose(f);
     return NULL;
 }
 
